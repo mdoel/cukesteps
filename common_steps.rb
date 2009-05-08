@@ -27,7 +27,7 @@ Then /^I should see (\d+) (\S+) in the (\S+)$/ do |count, element, containing_el
 end
 
 Then /^I should see (\d+) to (\d+) (\S+) in the (\S+)$/ do |min, max, element, containing_element|
-  @response.should have_tag("##{containing_element} .#{element.singularize}",min.to_i..max.to_i)
+  response.should have_tag("##{containing_element} .#{element.singularize}",min.to_i..max.to_i)
 end
 
 Then /^the (\S+) in the (\S+) should contain (a|an|the) (\S+)$/ do |middle_element, outer_element, a, inner_element|

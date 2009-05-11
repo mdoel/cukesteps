@@ -1,0 +1,10 @@
+= cukesteps
+
+cukesteps is a gem containing general purpose step definitions for the Cucumber BDD framework.
+
+Cucumber provides a single webrat_steps.rb file containing generic steps.  This gem provides a bunch more.
+
+
+== Copyright
+
+Copyright (c) 2009 Mike Doel. See LICENSE for details.

@@ -8,7 +8,7 @@ begin
     gemspec.summary = "General purpose step definitions for Cucumber"
     gemspec.email = "mike@mikedoel.com"
     gemspec.homepage = "http://github.com/mdoel/cukesteps/tree/master"
-    gemspec.description = "General purpose step definitions for Cucumber"
+    gemspec.description = "General purpose step definitions for the ruby BDD framework Cucumber"
     gemspec.authors = ["Mike Doel"]
   end
 rescue LoadError

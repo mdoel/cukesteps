@@ -2,7 +2,18 @@
 
 cukesteps is a gem containing general purpose step definitions for the Cucumber BDD framework.
 
-Cucumber provides a single webrat_steps.rb file containing generic steps.  This gem provides a bunch more.
+Cucumber provides a single webrat_steps.rb file containing generic steps.  This gem provides more.
+
+To use it, add:
+
+require 'cukesteps'
+
+to your features/support/env.rb file
+
+= To Do
+
+- make the gem usable with different testing frameworks and/or make it framework agnostic (currently uses Rspec)
+- test these tests (see http://github.com/mdoel/cukesteps-test/tree/master)
 
 
 == Copyright

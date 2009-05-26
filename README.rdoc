@@ -6,7 +6,7 @@ Cucumber provides a single webrat_steps.rb file containing generic steps.  This 
 
 To use it, add:
 
-require 'cukesteps'
+require 'mdoel-cukesteps'
 
 to your features/support/env.rb file
 

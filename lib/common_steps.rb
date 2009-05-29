@@ -58,51 +58,5 @@ end
 
 
 Given /^the following (\S+) exist$/ do |model_class_name,table|
-  @created_objects ||= {}
-  model_class_name = model_class_name.downcase.singularize
-  table.hashes.each do |params_hash|
-    hash = {}
-    params_hash.each {|k,v| hash[k.downcase] = v}
-    attributes = {}
-    object_name = hash.delete(model_class_name)
-    @created_objects[model_class_name] ||= {} if !object_name.nil?
-    hash.each do |key,value|
-      normalized_key = key.downcase.gsub(' ','_')
-      if @created_objects[key].nil?
-        attributes[normalized_key.to_sym] = value
-      else
-        attributes[normalized_key.to_sym] = @created_objects[key][value]
-      end
-    end
-    new_object = create_model(model_class_name,attributes)
-    @created_objects[model_class_name][object_name] = new_object if !object_name.nil?
-  end
+  build_cuke_objects model_class_name, table
 end
-
-module CukeAssociationHelpers
-  def cuke_association_builders(associations = [])
-  end
-
-  def handle_association_params(hash)
-    attributes = {}
-    ["location", "brand"].each do |attribute|
-      value = hash.delete(attribute)
-      if !value.nil?
-        if attribute == "location"
-          location = create_location(:address => value)
-          attributes[:location] = location
-        else
-          brand = Brand.find_by_name(value)
-          attributes[:brand] = brand
-        end
-      end
-    end
-    attributes
-  end
-
-
-  def create_model(model_name, attributes={})  
-    send("create_#{model_name.gsub(' ','_')}",attributes)  
-  end
-end
-World(CukeAssociationHelpers)

@@ -79,7 +79,10 @@ Given /^the following (\S+) exist$/ do |model_class_name,table|
   end
 end
 
-module CukeCommonsHelpers
+module CukeAssociationHelpers
+  def cuke_association_builders(associations = [])
+  end
+
   def handle_association_params(hash)
     attributes = {}
     ["location", "brand"].each do |attribute|
@@ -102,4 +105,4 @@ module CukeCommonsHelpers
     send("create_#{model_name.gsub(' ','_')}",attributes)  
   end
 end
-World(CukeCommonsHelpers)
+World(CukeAssociationHelpers)

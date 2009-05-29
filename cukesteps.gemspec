@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "cukesteps.gemspec",
      "lib/common_steps.rb",
      "lib/cukesteps.rb",
      "test/cukesteps_test.rb",

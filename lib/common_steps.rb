@@ -47,16 +47,7 @@ Then /^(\d+) (\S+) should exist$/ do |count, element_class|
   klass.count.should eql(count.to_i)
 end
 
-Given /^the following resorts$/ do |table|
-  table.hashes.each do |params_hash|
-   hash = params_hash.dup
-   attributes = handle_association_params(hash) 
-   hash.each { |k,v| attributes[k.gsub(' ','').underscore.to_sym] = v }
-   create_resort(attributes)
-  end
-end
-
-
+# Steps for creating objects that can be associated with other objects
 Given /^the following (\S+) exist$/ do |model_class_name,table|
   build_cuke_objects model_class_name, table
 end

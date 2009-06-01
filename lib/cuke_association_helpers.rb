@@ -47,10 +47,8 @@ module CukeAssociationHelpers
 
   def build_value(key,value)
     if @@associated_cuke_builders[key].nil?
-      puts "sanity 1"
       value
     else
-      puts "sanity 2"
       build_value_from_association(key,value)
     end
   end
@@ -66,7 +64,6 @@ module CukeAssociationHelpers
   end
 
   def class_from_symbol(key)
-    puts "sanity 5"
     key.to_s.capitalize.constantize
   end
 

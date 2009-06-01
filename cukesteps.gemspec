@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cukesteps}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mike Doel"]
-  s.date = %q{2009-05-10}
+  s.date = %q{2009-06-01}
   s.description = %q{General purpose step definitions for the ruby BDD framework Cucumber}
   s.email = %q{mike@mikedoel.com}
   s.extra_rdoc_files = [
@@ -21,8 +21,9 @@ Gem::Specification.new do |s|
      "VERSION",
      "cukesteps.gemspec",
      "lib/common_steps.rb",
-     "lib/cukesteps.rb",
      "lib/cuke_association_helpers.rb",
+     "lib/cukesteps.rb",
+     "pkg/cukesteps-0.1.0.gem",
      "test/cukesteps_test.rb",
      "test/test_helper.rb"
   ]

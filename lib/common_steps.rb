@@ -15,6 +15,13 @@ Then /^(\d+) (\S+) should exist$/ do |count, element_class|
   klass.count.should eql(count.to_i)
 end
 
+Then /^dump all (\S+) to standard output$/ do |klass|
+  klass_name = klass.singularize.capitalize.constantize
+  records = klass_name.send(:find, :all)
+  records.each { |record| puts record.inspect }
+end
+
+
 # Steps that are generally useful and help encourage use of semantic
 # IDs and Class Names in your markup.  In the steps below, a match following
 # "the" will verify the presences of an element with a given ID while a match following

@@ -12,26 +12,26 @@ The steps fall into three basic categories:
 = Object creation step(s)
 Right now, there's just one and it is of the form:
 
-Given the following foo(s) exist
+    Given the following foo(s) exist
 
 This is expected to be used with a step table and allows for complex associations to be built up
 in concise language.  Consider an application with models for restaurant, brand, employee, and
 location.  You might want to create a test world like:
 
-Given the following employees exist
-      | employee | name    |
-      | first    | joe     |
-      | second   | sally   |
-      | third    | william |
-Given the following restaurants exist
-      | Location   | Brand     | Employees    |
-      | Miami, fl  | McDonalds | first        |
-      | Columbus   | Chipotle  | second,third |
+    Given the following employees exist
+          | employee | name    |
+          | first    | joe     |
+          | second   | sally   |
+          | third    | william |
+    Given the following restaurants exist
+          | Location   | Brand     | Employees    |
+          | Miami, fl  | McDonalds | first        |
+          | Columbus   | Chipotle  | second,third |
 
 If you put the following in your features/support/env.rb file:
 
-cuke_association_builders(:brand => :build_associated_via_find_by_name,
-                          :location => :from_factory)
+    cuke_association_builders(:brand => :build_associated_via_find_by_name,
+                              :location => :from_factory)
 
 then each Restaurant object gets created and associated with three other model objects:
 - Brand - via a find_by_name lookup inside the brands table
@@ -56,6 +56,9 @@ in your browser.
 == Then n foos should exist
 Verifies that the count of Foo records is n
 
+== Then dump all foos to standard output
+Dumps the output of inspect for all ActiveRecord instances of Foo
+
 = Content Matching Steps
 These steps help encourage use of semantic IDs and Class Names in your markup.  The use of the
 articles "a" and "the" represent a class and ID respectively.  For example, "I should see a photo
@@ -71,18 +74,20 @@ The steps available here are:
 - Then I should see n to m foos in the bar
 - Then the baz in the bar should contain a foo
 
+The negation of each of the above is also available (e.g. Then I should not see a foo in the bar)
+
 = Installation/Use
 To install the gem, use:
 
-gem sources add github.com   (only need to do this once)
-gem install mikedoel-cukesteps
+    gem sources add github.com   (only need to do this once)
+    gem install mikedoel-cukesteps
 
 To use it, add the following to your features/support/env.rb file:
 
-require 'mdoel-cukesteps'
-include CukeAssociationhelpers
-cuke_association_builders(:model1 => :class_method_1,
-                          :model2 => :build_associated_via_find_by_name)
+    require 'mdoel-cukesteps'
+    include CukeAssociationhelpers
+    cuke_association_builders(:model1 => :class_method_1,
+                              :model2 => :build_associated_via_find_by_name)
 
 
 = To Do

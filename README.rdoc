@@ -80,7 +80,7 @@ The negation of each of the above is also available (e.g. Then I should not see 
 To install the gem, use:
 
     gem sources add github.com   (only need to do this once)
-    gem install mikedoel-cukesteps
+    gem install mdoel-cukesteps
 
 To use it, add the following to your features/support/env.rb file:
 

@@ -1,2 +1,2 @@
 require 'common_steps'
-#require 'lib/cuke_association_helpers.rb'
+require 'cuke_association_helpers.rb'

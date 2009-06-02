@@ -16,7 +16,8 @@ Right now, there's just one and it is of the form:
 
 This is expected to be used with a step table and allows for complex associations to be built up
 in concise language.  Consider an application with models for restaurant, brand, employee, and
-location.  You might want to create a test world like:
+location.  Brand instances are pre-seeded into your database (e.g. for dropdown lists and other
+similar uses).  You might want to create a test world like:
 
     Given the following employees exist
           | employee | name    |
@@ -30,16 +31,18 @@ location.  You might want to create a test world like:
 
 If you put the following in your features/support/env.rb file:
 
-    cuke_association_builders(:brand => :build_associated_via_find_by_name,
-                              :location => :from_factory)
+    cuke_association_attributes(:brand => :name,
+                                :location => :address)
 
 then each Restaurant object gets created and associated with three other model objects:
 - Brand - via a find_by_name lookup inside the brands table
-- Location - via the return of the Location#from_factory class method
+- Location - via the return of the create_location(:address => address) factory method (e.g. from FixtureReplacemnt)
 - Employee - from the objects created in the previous step
 
-Note that in the above, :build_associated_via_find_by_name is the only "magic" value to associate with
-a model/table column.
+For items passed to the cuke_association_attributes method, the basic logic used in finding the
+objects to use for the association is:
+- Try a find_by_attribute method.  If that returns a non-nil value, it is used.  Otherwise
+- Use a FixtureReplacement-like create_model factory method built from the attribute and value
 
 = General Debugging/Development steps
 These steps are not typically ones you would leave inside your cucumber features file as they are
@@ -66,15 +69,15 @@ in the search results" ensures that the the page contains an element of class ph
 search-results.
 
 The steps available here are:
-- Then I should see the foo
-- Then I should see a|an foo
-- Then I should see a foo in the bar
-- Then I should see the foo in the bar
-- Then I should see n foos in the bar
-- Then I should see n to m foos in the bar
-- Then the baz in the bar should contain a foo
+- Then I should see the foo (e.g. Then I should see the search-results)
+- Then I should see a|an foo (e.g. Then I should see a listing)
+- Then I should see a foo in the bar (e.g. Then I should see a listing in the search-results)
+- Then I should see the foo in the bar (e.g. Then I should see the map in the search-results)
+- Then I should see n foos in the bar (e.g. Then I should see 4 listings in the search-results)
+- Then I should see n to m foos in the bar (e.g. Then I should see 3 to 5 listings in the search-results)
+- Then the baz in the bar should contain a foo (e.g. Then the map in the search-results should contain a resizer)
 
-The negation of each of the above is also available (e.g. Then I should not see a foo in the bar)
+The negation of each of the above is also available (e.g. Then I should not see a listing in the search-results)
 
 = Installation/Use
 To install the gem, use:
@@ -86,8 +89,8 @@ To use it, add the following to your features/support/env.rb file:
 
     require 'mdoel-cukesteps'
     include CukeAssociationhelpers
-    cuke_association_builders(:model1 => :class_method_1,
-                              :model2 => :build_associated_via_find_by_name)
+    cuke_association_attributes(:model1 => :attribute_1
+                                :model2 => :attribute_2)
 
 
 = To Do

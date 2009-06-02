@@ -1,6 +1,6 @@
 module CukeAssociationHelpers
   
-  def cuke_association_builders(associations = {})
+  def cuke_association_attributes(associations = {})
     @@associated_cuke_builders ||= {}
     associations.each { |k,v| @@associated_cuke_builders[k] = v }
   end
@@ -62,12 +62,12 @@ module CukeAssociationHelpers
 
   def build_value_from_association(key,value)
     klass = class_from_symbol(key)
-    builder = @@associated_cuke_builders[key]
-    if builder == :build_associated_via_find_by_name
-      klass.find_by_name(value)
-    else
-      klass.send(builder,value)
+    builder_attribute = @@associated_cuke_builders[key]
+    built_object = klass.send("find_by_#{builder_attribute}", value)
+    if built_object.nil?
+      built_object = create_model(key.to_s,{builder_attribute.to_sym => value})
     end
+    built_object
   end
 
   def class_from_symbol(key)

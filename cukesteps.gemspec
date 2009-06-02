@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{mdoel-cukesteps}
-  s.version = "0.5.0"
+  s.name = %q{cukesteps}
+  s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mike Doel"]
@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
      "cukesteps.gemspec",
      "lib/common_steps.rb",
      "lib/cuke_association_helpers.rb",
-     "lib/mdoel-cukesteps.rb",
+     "lib/cukesteps.rb",
      "test/cukesteps_test.rb",
      "test/test_helper.rb"
   ]

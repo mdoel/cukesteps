@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
      "lib/common_steps.rb",
      "lib/cuke_association_helpers.rb",
      "lib/cukesteps.rb",
-     "pkg/cukesteps-0.1.0.gem",
      "test/cukesteps_test.rb",
      "test/test_helper.rb"
   ]

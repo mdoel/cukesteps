@@ -4,17 +4,91 @@ cukesteps is a gem containing general purpose step definitions for the Cucumber 
 
 Cucumber provides a single webrat_steps.rb file containing generic steps.  This gem provides more.
 
-To use it, add:
+The steps fall into three basic categories:
+- object creation steps
+- general debugging/development steps
+- content matching steps
+
+= Object creation step(s)
+Right now, there's just one and it is of the form:
+
+Given the following foo(s) exist
+
+This is expected to be used with a step table and allows for complex associations to be built up
+in concise language.  Consider an application with models for restaurant, brand, employee, and
+location.  You might want to create a test world like:
+
+Given the following employees exist
+      | employee | name    |
+      | first    | joe     |
+      | second   | sally   |
+      | third    | william |
+Given the following restaurants exist
+      | Location   | Brand     | Employees    |
+      | Miami, fl  | McDonalds | first        |
+      | Columbus   | Chipotle  | second,third |
+
+If you put the following in your features/support/env.rb file:
+
+cuke_association_builders(:brand => :build_associated_via_find_by_name,
+                          :location => :from_factory)
+
+then each Restaurant object gets created and associated with three other model objects:
+- Brand - via a find_by_name lookup inside the brands table
+- Location - via the return of the Location#from_factory class method
+- Employee - from the objects created in the previous step
+
+Note that in the above, :build_associated_via_find_by_name is the only "magic" value to associate with
+a model/table column.
+
+= General Debugging/Development steps
+These steps are not typically ones you would leave inside your cucumber features file as they are
+primarily useful if you are trying to debug some issue rather than doing true acceptance testing.
+
+== Then I debug
+Use this in the middle of a scenario to stop running the scenario and dump you into the ruby debugger
+at this point.
+
+== Then save_and_open_page
+This uses webrats save_and_open_page method to capture the output of your scenario at some point and open it
+in your browser.
+
+== Then n foos should exist
+Verifies that the count of Foo records is n
+
+= Content Matching Steps
+These steps help encourage use of semantic IDs and Class Names in your markup.  The use of the
+articles "a" and "the" represent a class and ID respectively.  For example, "I should see a photo
+in the search results" ensures that the the page contains an element of class photo inside an element of ID 
+search-results (note that spaces in element names are converted to dashes).
+
+The steps available here are:
+- Then I should see the foo
+- Then I should see a|an foo
+- Then I should see a foo in the bar
+- Then I should see the foo in the bar
+- Then I should see n foos in the bar
+- Then I should see n to m foos in the bar
+- Then the baz in the bar should contain a foo
+
+= Installation/Use
+To install the gem, use:
+
+gem sources add github.com   (only need to do this once)
+gem install mikedoel-cukesteps
+
+To use it, add the following to your features/support/env.rb file:
 
 require 'mdoel-cukesteps'
+include CukeAssociationhelpers
+cuke_association_builders(:model1 => :class_method_1,
+                          :model2 => :build_associated_via_find_by_name)
 
-to your features/support/env.rb file
 
 = To Do
 
-- make the gem usable with different testing frameworks and/or make it framework agnostic (currently uses Rspec)
-- test these tests (see http://github.com/mdoel/cukesteps-test/tree/master)
-
+- incorporate better testing (right now, testing is in a separate cukesteps-test project)
+- make this documentation better
 
 == Copyright
 

@@ -35,14 +35,21 @@ module CukeAssociationHelpers
   def assemble_attributes(hash,object_name)
     attributes = {}
     hash.each do |key,value|
+      cached_key = key.singularize.downcase
       symbolized_key = key.downcase.gsub(' ','_').to_sym
-      if @created_objects[key].nil?
+      if @created_objects[cached_key].nil?
         attributes[symbolized_key] = build_value(symbolized_key,value)
       else
-        attributes[symbolized_key] = @created_objects[key][value]
+        attributes[symbolized_key] = saved_objects(cached_key,value)
       end
     end
     attributes
+  end
+
+  def saved_objects(klass,value)
+    objects = []
+    value.split(",").each {|o| objects << @created_objects[klass][o]}
+    objects
   end
 
   def build_value(key,value)

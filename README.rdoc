@@ -63,7 +63,7 @@ Dumps the output of inspect for all ActiveRecord instances of Foo
 These steps help encourage use of semantic IDs and Class Names in your markup.  The use of the
 articles "a" and "the" represent a class and ID respectively.  For example, "I should see a photo
 in the search results" ensures that the the page contains an element of class photo inside an element of ID 
-search-results (note that spaces in element names are converted to dashes).
+search-results.
 
 The steps available here are:
 - Then I should see the foo

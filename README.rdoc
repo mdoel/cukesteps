@@ -76,6 +76,9 @@ The steps available here are:
 - Then I should see n foos in the bar (e.g. Then I should see 4 listings in the search-results)
 - Then I should see n to m foos in the bar (e.g. Then I should see 3 to 5 listings in the search-results)
 - Then the baz in the bar should contain a foo (e.g. Then the map in the search-results should contain a resizer)
+- Then the page title should be "Login"
+- Then the page title should contain "Login"
+- Then flash should display "your update succeeded!" notice
 
 The negation of each of the above is also available (e.g. Then I should not see a listing in the search-results)
 

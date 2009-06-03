@@ -65,14 +65,14 @@ end
 # Then the page title should be "Login"
 Then /^the page title should( not)? be "(.*)"$/ do |negation, expectation|
   matcher = negation.blank? ? :should : :should_not
-  response.send matcher, have_tag('title', html_escape(expectation))
+  response.send matcher, have_tag('title', CGI::escapeHTML(expectation))
 end
 
 # Test for presence in page title. E.g.:
 # Then the page title should contain "Login"
 Then /^the page title should( not)? contain "(.*)"$/ do |negation, expectation|
   matcher = negation.blank? ? :should : :should_not
-  response.send matcher, have_tag('title', /#{html_escape(expectation)}/)
+  response.send matcher, have_tag('title', /#{CGI::escapeHTML(expectation)}/)
 end
 
 # Test for presence in a particular flash. E.g.:

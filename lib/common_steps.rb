@@ -61,6 +61,27 @@ Then /^the (\S+) in the (\S+) should( not)? contain an? (\S+)$/ do |middle_eleme
   response.send matcher, have_tag("##{outer_element} ##{middle_element} .#{inner_element}")
 end
 
+# Test for page title. E.g.:
+# Then the page title should be "Login"
+Then /^the page title should( not)? be "(.*)"$/ do |negation, expectation|
+  matcher = negation.blank? ? :should : :should_not
+  response.send matcher, have_tag('title', html_escape(expectation))
+end
+
+# Test for presence in page title. E.g.:
+# Then the page title should contain "Login"
+Then /^the page title should( not)? contain "(.*)"$/ do |negation, expectation|
+  matcher = negation.blank? ? :should : :should_not
+  response.send matcher, have_tag('title', /#{html_escape(expectation)}/)
+end
+
+# Test for presence in a particular flash. E.g.:
+# Then flash should display "your update succeeded!" notice
+Then /^flash should( not)? display "([^\"]*)" (\S+)$/ do |negation, message, message_type|
+  matcher = negation.blank? ? :should : :should_not
+  flash[message_type.to_sym].send(:eql?, message)
+end
+
 # Steps for creating objects that can be associated with other objects
 Given /^the following (\S+) exist$/ do |model_class_name,table|
   build_cuke_objects model_class_name, table

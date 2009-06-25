@@ -40,16 +40,10 @@ module CukeAssociationHelpers
       if @created_objects[cached_key].nil?
         attributes[symbolized_key] = build_value(symbolized_key,value)
       else
-        attributes[symbolized_key] = saved_objects(cached_key,value)
+        attributes[symbolized_key] = @created_objects[cached_key][value]
       end
     end
     attributes
-  end
-
-  def saved_objects(klass,value)
-    objects = []
-    value.split(",").each {|o| objects << @created_objects[klass][o]}
-    objects
   end
 
   def build_value(key,value)

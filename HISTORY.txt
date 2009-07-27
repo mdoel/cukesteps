@@ -1,0 +1,3 @@
+- Version 0.6.3
+- Merge Steve Ross changes for checking page title and flash contents
+
